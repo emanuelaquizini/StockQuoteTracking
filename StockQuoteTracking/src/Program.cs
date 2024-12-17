@@ -1,5 +1,9 @@
 ﻿using System.Text.Json;
+using Microsoft.Extensions.DependencyInjection;
+using StockQuoteTracking.src.ExternalServices;
+using StockQuoteTracking.src.Interfaces;
 using StockQuoteTracking.src.Models;
+using StockQuoteTracking.src.Services;
 
 namespace StockQuoteTracking.src
 {
@@ -7,21 +11,20 @@ namespace StockQuoteTracking.src
     {
         public static void Main(string[] args)
         {
+            var serviceCollection = new ServiceCollection();
+            ConfigureServices(serviceCollection);
 
-            if (args.Length < 3)
-            {
-                Console.WriteLine("You need to send the three arguments! \n " +
-                    "StcokQuoteTracking.exe <stock><sale-price><purchase-price>");
-                return;
-            }
+            var serviceProvider = serviceCollection.BuildServiceProvider();
+            var stockQuoteService = serviceProvider.GetService<IStockQuoteService>();
 
-            string stockName = args[0];
-            double salePrice = double.Parse(args[1]);
-            double purchasePrice = double.Parse(args[2]);
 
-            Stock stock = new Stock(stockName, salePrice, purchasePrice);
+            stockQuoteService.TrackStockQuote(args);
+        }
 
-            Console.WriteLine(JsonSerializer.Serialize(stock));
+        private static void ConfigureServices(IServiceCollection services)
+        {
+            services.AddSingleton<IStockQuoteService, StockQuoteService>();
+            services.AddSingleton<IStockQuoteClient, StockQuoteClient>();
 
         }
     }

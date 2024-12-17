@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "StockQuoteTracking": {
+      "commandName": "Project",
+      "commandLineArgs": "PETR4 22.67 22.59"
+    },
+    "WSL": {
+      "commandName": "WSL2",
+      "distributionName": ""
+    }
+  }
+}
