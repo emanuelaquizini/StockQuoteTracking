@@ -26,8 +26,6 @@ namespace StockQuoteTracking.src.Services
 
             string formattedSymbol = await _stockUtils.FormatStockSymbolIfBrazilian(stockName);
 
-            Console.WriteLine("testandooooo " + formattedSymbol);
-
             var historicalData = await _stockQuoteClient.GetHistoricalData(formattedSymbol);
 
             double maxPrice = double.MinValue;

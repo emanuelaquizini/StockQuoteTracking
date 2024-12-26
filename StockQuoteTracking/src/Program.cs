@@ -24,8 +24,7 @@ namespace StockQuoteTracking.src
 
             while (true)
             {
-                // descomente ao rodar o debug para ver o terminal
-                //candleSticksService.TrackCandleSticks(args);
+                candleSticksService.TrackCandleSticks(args);
                 stockQuoteService.TrackStockQuote(args);
 
                 await Task.Delay(20000);

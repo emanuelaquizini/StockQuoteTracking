@@ -51,6 +51,7 @@ namespace StockQuoteTracking.src.Services
                     smtpClient.Credentials = new NetworkCredential(emailSettings.SmtpUser, emailSettings.SmtpPassword);
                     smtpClient.EnableSsl = true;
                     smtpClient.Send(mailMessage);
+                    Console.WriteLine($"Email enviado para {emailSettings.EmailAdress}!");
                 }
             }
             catch (FormatException ex)

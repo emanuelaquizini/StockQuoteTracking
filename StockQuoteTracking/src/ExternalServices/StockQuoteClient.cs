@@ -67,7 +67,6 @@ namespace StockQuoteTracking.src.ExternalServices
 
             string url = $"https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords={stockSymbol}&apikey={settings.ApiKey}";
 
-            Console.WriteLine("Url aquiii " + url);
 
             using (var client = new HttpClient())
             {
