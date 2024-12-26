@@ -1,5 +1,9 @@
 ﻿using System.Text.Json;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using StockQuoteTracking.src.Configurations;
 using StockQuoteTracking.src.ExternalServices;
 using StockQuoteTracking.src.Interfaces;
 using StockQuoteTracking.src.Models;
@@ -9,23 +13,38 @@ namespace StockQuoteTracking.src
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            var serviceCollection = new ServiceCollection();
-            ConfigureServices(serviceCollection);
-
-            var serviceProvider = serviceCollection.BuildServiceProvider();
-            var stockQuoteService = serviceProvider.GetService<IStockQuoteService>();
-
+           
+            var host = CreateHostBuilder(args).Build();
+       
+            var stockQuoteService = host.Services.GetService<IStockQuoteService>();
 
             stockQuoteService.TrackStockQuote(args);
         }
 
-        private static void ConfigureServices(IServiceCollection services)
-        {
-            services.AddSingleton<IStockQuoteService, StockQuoteService>();
-            services.AddSingleton<IStockQuoteClient, StockQuoteClient>();
 
-        }
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+          Host.CreateDefaultBuilder(args)
+            .ConfigureHostConfiguration(configHost =>
+            {
+                configHost.AddEnvironmentVariables();
+                configHost.AddCommandLine(args);    
+            })
+              .ConfigureLogging(logging =>
+              {
+                  logging.AddConsole();
+              })
+              .ConfigureServices((hostContext, services) =>
+              {
+                  services.AddSingleton<IStockQuoteService, StockQuoteService>();
+                  services.AddSingleton<IStockQuoteClient, StockQuoteClient>();
+                  services.AddSingleton<IConfig, Config>();
+
+                  services.AddTransient<IEmailService, EmailService>();
+              });
+
+
+
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace StockQuoteTracking.src.Interfaces
 {
     public interface IStockQuoteService
-    {
-        void TrackStockQuote(string[] args);
+    {  
+       void TrackStockQuote(string[] args);
     }
 }

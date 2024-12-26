@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace StockQuoteTracking.src.Interfaces
 {
-    public interface IStockQuoteClient
+    public interface IConfig
     {
-        Task<double> ObterCotacaoAtivo();
+        EmailSettings LoadEmailSettings();
     }
 }

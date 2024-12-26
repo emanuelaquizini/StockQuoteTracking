@@ -2,10 +2,17 @@
   "profiles": {
     "StockQuoteTracking": {
       "commandName": "Project",
-      "commandLineArgs": "PETR4 22.67 22.59"
+      // variaveis para teste do debug
+      "commandLineArgs": "PETR4 22.67 22.59",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
     },
     "WSL": {
       "commandName": "WSL2",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      },
       "distributionName": ""
     }
   }
