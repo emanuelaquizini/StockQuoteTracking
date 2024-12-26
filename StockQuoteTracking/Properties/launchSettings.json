@@ -3,15 +3,18 @@
     "StockQuoteTracking": {
       "commandName": "Project",
       // variaveis para teste do debug
-      "commandLineArgs": "PETR4 22.67 22.59",
+      // descomente ao rodar o debug para ver o terminal
+      //"commandLineArgs": "PETR4 22.67 22.59",
       "environmentVariables": {
-        "DOTNET_ENVIRONMENT": "Development"
+        "DOTNET_ENVIRONMENT": "Development",
+        "ASPNET_ENVIRONMENT": "Development"
       }
     },
     "WSL": {
       "commandName": "WSL2",
       "environmentVariables": {
-        "DOTNET_ENVIRONMENT": "Development"
+        "DOTNET_ENVIRONMENT": "Development",
+        "ASPNET_ENVIRONMENT": "Development"
       },
       "distributionName": ""
     }

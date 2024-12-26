@@ -10,5 +10,6 @@ namespace StockQuoteTracking.src.Interfaces
     public interface IConfig
     {
         EmailSettings LoadEmailSettings();
+        StockApiSettings LoadStockApiSettings();
     }
 }

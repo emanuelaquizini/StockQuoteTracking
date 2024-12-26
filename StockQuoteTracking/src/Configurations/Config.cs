@@ -49,5 +49,28 @@ namespace StockQuoteTracking.src.Configurations
 
             return emailSettings;
         }
+
+        public StockApiSettings LoadStockApiSettings()
+        {
+            StockApiSettings stockApiSettings = new StockApiSettings();
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{_hostEnvironment.EnvironmentName}.json", optional: true, reloadOnChange: true);
+
+            IConfigurationRoot configuration = builder.Build();
+            var stockApiSettingsConfig = configuration.GetSection("StockApiSettings");
+
+            if (stockApiSettings is not null)
+            {
+                stockApiSettings.ApiKey = stockApiSettingsConfig.GetSection("ApiKey").Value;
+            }
+            else
+            {
+                throw new Exception("StockApiSettings não configurado no appsettings.json");
+            }
+
+            return stockApiSettings;
+        }
     }
 }

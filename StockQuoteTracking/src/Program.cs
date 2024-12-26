@@ -8,6 +8,7 @@ using StockQuoteTracking.src.ExternalServices;
 using StockQuoteTracking.src.Interfaces;
 using StockQuoteTracking.src.Models;
 using StockQuoteTracking.src.Services;
+using StockQuoteTracking.src.Utils;
 
 namespace StockQuoteTracking.src
 {
@@ -15,12 +16,21 @@ namespace StockQuoteTracking.src
     {
         public static async Task Main(string[] args)
         {
-           
-            var host = CreateHostBuilder(args).Build();
-       
-            var stockQuoteService = host.Services.GetService<IStockQuoteService>();
 
-            stockQuoteService.TrackStockQuote(args);
+            var host = CreateHostBuilder(args).Build();
+
+            var stockQuoteService = host.Services.GetService<IStockQuoteService>();
+            var candleSticksService = host.Services.GetService<ICandleSticksService>();
+
+            while (true)
+            {
+                // descomente ao rodar o debug para ver o terminal
+                //candleSticksService.TrackCandleSticks(args);
+                stockQuoteService.TrackStockQuote(args);
+
+                await Task.Delay(20000);
+            }
+
         }
 
 
@@ -29,7 +39,7 @@ namespace StockQuoteTracking.src
             .ConfigureHostConfiguration(configHost =>
             {
                 configHost.AddEnvironmentVariables();
-                configHost.AddCommandLine(args);    
+                configHost.AddCommandLine(args);
             })
               .ConfigureLogging(logging =>
               {
@@ -40,6 +50,8 @@ namespace StockQuoteTracking.src
                   services.AddSingleton<IStockQuoteService, StockQuoteService>();
                   services.AddSingleton<IStockQuoteClient, StockQuoteClient>();
                   services.AddSingleton<IConfig, Config>();
+                  services.AddSingleton<ICandleSticksService, CandleSticksService>();
+                  services.AddSingleton<IStockUtils, StockUtils>();
 
                   services.AddTransient<IEmailService, EmailService>();
               });

@@ -27,25 +27,37 @@ namespace StockQuoteTracking.src.Services
 
         public void SendEmail(string emailSubject, string emailBody)
         {
-            EmailSettings emailSettings = _config.LoadEmailSettings();
-
-            var mailMessage = new MailMessage
+            try
             {
-                From = new MailAddress(emailSettings.EmailFrom),
-                Subject = emailSubject,
-                Body = emailBody
-            };
-            mailMessage.To.Add(emailSettings.EmailAdress);
 
-            using (var smtpClient = new SmtpClient(emailSettings.SmtpServer, emailSettings.SmtpPort))
+                EmailSettings emailSettings = _config.LoadEmailSettings();
+
+                var mailMessage = new MailMessage
+                {
+                    From = new MailAddress(emailSettings.EmailFrom),
+                    Subject = emailSubject,
+                    Body = emailBody
+                };
+                mailMessage.To.Add(emailSettings.EmailAdress);
+
+                using (var smtpClient = new SmtpClient(emailSettings.SmtpServer, emailSettings.SmtpPort))
+                {
+                    smtpClient.Credentials = new NetworkCredential(emailSettings.SmtpUser, emailSettings.SmtpPassword);
+                    smtpClient.EnableSsl = true;
+                    smtpClient.Send(mailMessage);
+                }
+            }
+            catch (FormatException ex)
             {
-                smtpClient.Credentials = new NetworkCredential(emailSettings.SmtpUser, emailSettings.SmtpPassword);
-                smtpClient.EnableSsl = true;
-                smtpClient.Send(mailMessage);
+                Console.WriteLine($"Erro no formato do endereço de e-mail: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro ao enviar e-mail: {ex.Message}");
             }
         }
 
-      
+
     }
 
 }

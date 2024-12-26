@@ -47,20 +47,13 @@ namespace StockQuoteTracking.src.Services
         public async Task MonitorarCotacao(Stock stock, double quotePrice)
         {
 
-            while (true)
+            if (quotePrice < stock.PurchasePrice)
             {
-
-
-                if (quotePrice < stock.PurchasePrice)
-                {
-                    _emailService.SendEmail("Alerta de Preço Baixo", $"O preço do ativo {stock.Name} caiu abaixo do limite de compra ({stock.PurchasePrice}). Cotação atual: {quotePrice}");
-                }
-                else if (quotePrice > stock.SalePrice)
-                {
-                    _emailService.SendEmail("Alerta de Preço Alto", $"O preço do ativo {stock.Name} subiu acima do limite de venda ({stock.SalePrice}). Cotação atual: {quotePrice}");
-                }
-
-                await Task.Delay(20000);
+                _emailService.SendEmail("Alerta de Preço Baixo", $"O preço do ativo {stock.Name} caiu abaixo do limite de compra ({stock.PurchasePrice}). Cotação atual: {quotePrice}");
+            }
+            else if (quotePrice > stock.SalePrice)
+            {
+                _emailService.SendEmail("Alerta de Preço Alto", $"O preço do ativo {stock.Name} subiu acima do limite de venda ({stock.SalePrice}). Cotação atual: {quotePrice}");
             }
 
         }

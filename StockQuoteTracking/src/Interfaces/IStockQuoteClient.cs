@@ -10,5 +10,7 @@ namespace StockQuoteTracking.src.Interfaces
     public interface IStockQuoteClient
     {
         Task<double> ObterCotacaoAtivo();
+        Task<StockData[]> GetHistoricalData(string symbol);
+        Task<SymbolSearchResultApi> SymbolSearch(string stockSymbol);
     }
 }
