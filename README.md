@@ -45,7 +45,7 @@ Como Rodar o Projeto
 1.  Clone o repositório:
 
     ```
-    git clone https://github.com/seuusuario/projeto-monitoramento-acoes.git
+    git clone https://github.com/emanuelaquizini/StockQuoteTracking.git
     cd projeto-monitoramento-acoes
 
     ```
