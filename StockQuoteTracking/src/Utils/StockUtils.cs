@@ -26,7 +26,7 @@ namespace StockQuoteTracking.src.Utils
 
             var searchResult = await _stockQuoteClient.SymbolSearch(stockSymbol);
 
-            if (searchResult?.bestMatches == null)
+            if (searchResult?.BestMatches == null)
             {
                 throw new InvalidOperationException("No matches found for the stock symbol.");
             }
@@ -34,9 +34,9 @@ namespace StockQuoteTracking.src.Utils
 
             bool isFromB3 = false;
 
-            foreach (var match in searchResult.bestMatches)
+            foreach (var match in searchResult.BestMatches)
             {
-                if (match.region.Contains("Brazil"))
+                if (match.Region.Contains("Brazil"))
                 {
                     isFromB3= true;
                 }

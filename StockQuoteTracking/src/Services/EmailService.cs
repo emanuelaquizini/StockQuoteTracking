@@ -32,6 +32,11 @@ namespace StockQuoteTracking.src.Services
 
                 EmailSettings emailSettings = _config.LoadEmailSettings();
 
+                if (emailSettings is null)
+                {
+                    throw new NullReferenceException("EmailSettings não configurado no appsettings.json");
+                }
+
                 var mailMessage = new MailMessage
                 {
                     From = new MailAddress(emailSettings.EmailFrom),
@@ -51,9 +56,14 @@ namespace StockQuoteTracking.src.Services
             {
                 Console.WriteLine($"Erro no formato do endereço de e-mail: {ex.Message}");
             }
+            catch (NullReferenceException ex)
+            {
+                throw new NullReferenceException("EmailSettings não configurado no appsettings.json");
+            }
             catch (Exception ex)
             {
                 Console.WriteLine($"Erro ao enviar e-mail: {ex.Message}");
+
             }
         }
 

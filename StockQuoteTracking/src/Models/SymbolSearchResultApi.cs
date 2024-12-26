@@ -9,20 +9,20 @@ namespace StockQuoteTracking.src.Models
 {
     public class SymbolSearchResultApi
     {
-        public BestMatch[] bestMatches { get; set; }
+        public BestMatch[] BestMatches { get; set; }
     }
 
 
     public class BestMatch
     {
         [JsonProperty("1. symbol")]
-        public string symbol { get; set; }
+        public string Symbol { get; set; }
         [JsonProperty("2. name")]
-        public string name { get; set; }
+        public string Name { get; set; }
         [JsonProperty("4. region")]
-        public string region { get; set; }
+        public string Region { get; set; }
         [JsonProperty("8. currency")]
-        public string currency { get; set; }
+        public string Currency { get; set; }
     }
 
 }

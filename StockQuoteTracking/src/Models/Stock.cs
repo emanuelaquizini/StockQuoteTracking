@@ -18,6 +18,11 @@ namespace StockQuoteTracking.src.Models
             SalePrice = salePrice;
             PurchasePrice = purchasePrice;
         }
+
+        public Stock()
+        {
+
+        }
     }
 
 }
