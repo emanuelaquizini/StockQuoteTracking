@@ -35,7 +35,7 @@ namespace StockQuoteTracking.Tests.Services.StockQuote
                 .Generate();
 
             _stockQuoteClientMoq.Setup(s => s.ObterCotacaoAtivo()).ReturnsAsync(22.50);
-            _emailServiceMoq.Setup(e => e.SendEmail(It.IsAny<string>(), It.IsAny<string>()));
+            _emailServiceMoq.Setup(e => e.SendEmail(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>()));
 
 
             // Act
@@ -43,7 +43,7 @@ namespace StockQuoteTracking.Tests.Services.StockQuote
 
             // Assert
             _stockQuoteClientMoq.Verify(s => s.ObterCotacaoAtivo(), Times.Once);
-            _emailServiceMoq.Verify(e => e.SendEmail(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+            _emailServiceMoq.Verify(e => e.SendEmail(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>()), Times.Once);
         }
 
         [Fact]
@@ -61,13 +61,13 @@ namespace StockQuoteTracking.Tests.Services.StockQuote
 
             var quotePrice = 150.0;
 
-            _emailServiceMoq.Setup(e => e.SendEmail(It.IsAny<string>(), It.IsAny<string>()));
+            _emailServiceMoq.Setup(e => e.SendEmail(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>()));
 
             // Act
             await service.MonitorarCotacao(stock, quotePrice);
 
             // Assert
-            _emailServiceMoq.Verify(e => e.SendEmail(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+            _emailServiceMoq.Verify(e => e.SendEmail(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>()), Times.Once);
         }
 
         [Fact]
@@ -92,7 +92,7 @@ namespace StockQuoteTracking.Tests.Services.StockQuote
             await service.MonitorarCotacao(stock, quotePrice);
 
             // Assert
-            _emailServiceMoq.Verify(e => e.SendEmail(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
+            _emailServiceMoq.Verify(e => e.SendEmail(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>()), Times.Never);
         }
     }
 }

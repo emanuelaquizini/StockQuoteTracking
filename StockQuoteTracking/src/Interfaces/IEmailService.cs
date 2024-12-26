@@ -8,6 +8,6 @@ namespace StockQuoteTracking.src.Interfaces
 {
     public interface IEmailService 
     {
-        void SendEmail(string emailsSubject, string emailBody);
+        void SendEmail(string emailsSubject, string emailBody, bool isHtml);
     }
 }

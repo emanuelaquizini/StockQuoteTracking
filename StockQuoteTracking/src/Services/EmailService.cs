@@ -25,7 +25,7 @@ namespace StockQuoteTracking.src.Services
             _config = config;
         }
 
-        public void SendEmail(string emailSubject, string emailBody)
+        public void SendEmail(string emailSubject, string emailBody, bool isHtml = false)
         {
             try
             {
@@ -41,7 +41,8 @@ namespace StockQuoteTracking.src.Services
                 {
                     From = new MailAddress(emailSettings.EmailFrom),
                     Subject = emailSubject,
-                    Body = emailBody
+                    Body = emailBody,
+                    IsBodyHtml = isHtml
                 };
                 mailMessage.To.Add(emailSettings.EmailAdress);
 
